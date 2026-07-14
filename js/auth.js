@@ -203,4 +203,6 @@ window.showAccountSignup = function(){
 
     document.getElementById("accountLogin").style.display="none";
 
+console.log("✅ auth.js loaded");
+    
 };
