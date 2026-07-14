@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Money Saver Pro</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="theme-color" content="#22c55e">
+</head>
+
+<body>
+
+    <link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#22c55e">
+
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <img src="images/logo.png" alt="Money Saver Pro Logo">
+
+            <h2>Money Saver Pro</h2>
+
+        </div>
+
+        <nav>
+
+            <button class="nav-btn active" onclick="showPage('home')">
+                🏠 Home
+            </button>
+
+            <button class="nav-btn" onclick="showPage('goals')">
+                🎯 Goals
+            </button>
+
+            <button class="nav-btn" onclick="showPage('family')">
+                👨‍👩‍👧 Family
+            </button>
+
+            <button class="nav-btn" onclick="showPage('stats')">
+                📊 Statistics
+            </button>
+
+            <button class="nav-btn" onclick="showPage('settings')">
+                ⚙️ Settings
+            </button>
+
+        </nav>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+
+        <!-- Home -->
+        <section id="home" class="page active">
+
+    <h1>Welcome Back 👋</h1>
+    <p class="subtitle">Keep saving and reach your goals!</p>
+
+    <div class="dashboard-grid">
+
+        <<div class="card summary-card">
+
+    <h3>💰 Total Saved</h3>
+
+    <h1 
+class="clickable-total"
+onclick="openSavingsMenu()">
+
+    $<span id="totalSaved">0.00</span>
+
+</h1>
+
+<div id="savingsMenu" class="savings-menu">
+
+    <div class="menu-box">
+
+        <h2>💰 Manage Savings</h2>
+
+
+        <button onclick="subtractSavings()">
+            ➖ Subtract Money
+        </button>
+
+
+        <button onclick="resetSavings()">
+            🗑 Reset Savings
+        </button>
+
+
+        <button onclick="closeSavingsMenu()">
+            ❌ Cancel
+        </button>
+
+    </div>
+
+</div>
+
+    <hr>
+
+    <h3>📋 Savings Breakdown</h3>
+
+    <div id="savingBreakdown">
+
+        No savings yet.
+
+    </div>
+
+</div>
+
+        <div class="card summary-card">
+            <h3>🎯 Goals</h3>
+            <h1><span id="goalCount">0</span></h1>
+        </div>
+
+        <div class="card summary-card">
+            <h3>🔥 Streak</h3>
+            <h1><span id="streak">0</span> Days</h1>
+        </div>
+
+        <div class="card summary-card">
+            <h3>🏆 Achievements</h3>
+            <h1><span id="badgeCount">0</span></h1>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>⚡ Quick Actions</h2>
+
+        <button onclick="showPage('goals')">
+            🎯 Create Goal
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h2>⭐ Featured Goal</h2>
+
+        <div id="featuredGoal">
+
+    <div class="featured-placeholder">
+
+        🎯 Create your first goal to see it here.
+
+    </div>
+
+</div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>📰 Recent Activity</h2>
+
+        <div id="recentActivity">
+
+            No activity yet.
+
+        </div>
+
+    </div>
+
+</section>
+
+        </section>
+
+        <!-- Goals -->
+<section id="goals" class="page">
+
+    <h1>🎯 Goals</h1>
+
+    <div class="card">
+
+        <h2>Create Goal</h2>
+
+        <input
+            id="goalName"
+            placeholder="Goal Name">
+
+        <input
+            id="goalAmount"
+            type="number"
+            placeholder="Goal Amount">
+
+        <select id="goalCategory">
+
+            <option>🎮 Gaming</option>
+            <option>🛴 Scooter</option>
+            <option>💻 Tech</option>
+            <option>🚗 Vehicle</option>
+            <option>🏠 House</option>
+            <option>🎁 Other</option>
+
+        </select>
+
+        <input
+            id="imageSearch"
+            placeholder="Search for an image">
+
+        <button onclick="searchUnsplash()">
+            🔍 Search Images
+        </button>
+
+        <div id="imageResults"></div>
+
+        <button onclick="createGoal()">
+            🎯 Create Goal
+        </button>
+
+    </div>
+
+    <div id="goalContainer"></div>
+
+</section>
+
+        <section id="family" class="page">
+
+    <h1>👨‍👩‍👧 Family Dashboard</h1>
+
+    <div class="card">
+
+        <h2>Family Information</h2>
+
+        <p><strong>Family Name:</strong> <span id="familyName">Not Connected</span></p>
+
+        <p><strong>Invite Code:</strong> <span id="familyCode">----------</span></p>
+
+        <button onclick="createFamily()">
+            ➕ Create Family
+        </button>
+
+        <button onclick="joinFamily()">
+            👨‍👩‍👧 Join Family
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Members</h2>
+
+        <div id="familyMembers">
+
+    No members yet.
+
+</div>
+
+    </div>
+
+    <div class="card">
+
+    <h2>💰 Family Savings</h2>
+
+    <h1>
+        $<span id="familySavings">0.00</span>
+    </h1>
+
+<div class="card">
+
+    <h2>🎯 Shared Family Goals</h2>
+
+
+    <input
+        id="familyGoalName"
+        placeholder="Goal Name">
+
+
+    <input
+        id="familyGoalAmount"
+        type="number"
+        placeholder="Goal Amount">
+
+
+    <button onclick="createFamilyGoal()">
+        ➕ Create Shared Goal
+    </button>
+
+
+    <div id="familyGoals">
+
+        No shared goals yet.
+
+    </div>
+
+</div>
+
+
+    <h2>📊 Family Progress</h2>
+
+    <div class="progress">
+
+        <div 
+        id="familyProgress"
+        class="progress-fill"
+        style="width:0%;">
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+        <!-- Stats -->
+        <section id="stats" class="page">
+
+            <h1>📊 Statistics</h1>
+
+            <canvas id="chart"></canvas>
+
+        </section>
+
+        <section id="settings" class="page">
+
+    <h1>⚙️ Settings</h1>
+
+
+    <div class="card">
+
+<div class="card">
+
+    <h2>👤 Profile</h2>
+
+
+    <img
+    id="profileImage"
+    src="images/default-profile.png"
+    width="100"
+    height="100"
+    style="border-radius:50%;"
+    >
+
+
+    <h3 id="profileName">
+        Guest
+    </h3>
+
+
+    <p id="profileEmail">
+        Not signed in
+    </p>
+
+
+    <p>
+
+        👨‍👩‍👧 Family:
+
+        <span id="profileFamily">
+            Not connected
+        </span>
+
+    </p>
+
+
+    <input
+    type="file"
+    id="profileUpload"
+    accept="image/*"
+    onchange="changeProfilePicture(event)"
+    >
+
+
+</div>
+
+        <h2>👤 Account</h2>
+
+
+        <div id="accountStatus">
+
+            Not signed in.
+
+        </div>
+
+
+        <button onclick="showAccountLogin()">
+
+            🔑 Sign In
+
+        </button>
+
+
+        <button onclick="showAccountSignup()">
+
+            📝 Create Account
+
+        </button>
+
+
+        <button onclick="logout()">
+
+            🚪 Logout
+
+        </button>
+
+<button id="installBtn" class="install-btn" style="display:none;">
+    📲 Install Money Saver Pro
+</button>
+
+    </div>
+
+
+
+    <div id="accountLogin" class="card" style="display:none;">
+
+
+        <h2>Sign In</h2>
+
+
+        <input id="loginEmail" placeholder="Email">
+
+
+        <input 
+        id="loginPassword"
+        type="password"
+        placeholder="Password">
+
+
+        <button onclick="login()">
+
+            🔑 Sign In
+
+        </button>
+
+
+    </div>
+
+
+
+    <div id="accountSignup" class="card" style="display:none;">
+
+
+        <h2>Create Account</h2>
+
+
+        <input id="name" placeholder="Your Name">
+
+
+        <input id="signupEmail" placeholder="Email">
+
+
+        <input
+        id="signupPassword"
+        type="password"
+        placeholder="Password">
+
+
+        <button onclick="signup()">
+
+            📝 Create Account
+
+        </button>
+
+
+    </div>
+
+
+    <button>
+        🌙 Toggle Theme
+    </button>
+
+
+</section>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/profile.js"></script>
+<script type="module" src="js/install.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/goals.js"></script>
+<script src="js/family.js"></script>
+<script src="js/stats.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/unsplash.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker.register("service-worker.js")
+    .then(() => {
+
+        console.log("✅ Money Saver Pro Offline Mode Enabled");
+
+    })
+    .catch(error => {
+
+        console.log("Service Worker Error:", error);
+
+    });
+
+}
+</script>
+
+</body>
+
+</html>
+
+<script type="module">
+
+import {
+
+onAuthStateChanged
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+onAuthStateChanged(
+
+window.auth,
+
+(user)=>{
+
+
+if(!user){
+
+location.href =
+"login.html";
+
+}
+
+
+}
+
+);
+
+
+</script>
