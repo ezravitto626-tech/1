@@ -211,6 +211,103 @@ async function loadProfile(user){
 
 
 
+// ======================================
+// Profile Picture Upload
+// ======================================
+
+
+let selectedProfileImage = null;
+
+
+
+window.changeProfilePicture = function(event){
+
+
+    const file =
+        event.target.files[0];
+
+
+    if(!file)
+        return;
+
+
+
+    selectedProfileImage = file;
+
+
+
+    const preview =
+        document.getElementById(
+            "profileImage"
+        );
+
+
+
+    if(preview){
+
+
+        preview.src =
+        URL.createObjectURL(file);
+
+
+    }
+
+
+};
+
+
+
+
+
+
+// ======================================
+// Upload Picture To Firebase
+// ======================================
+
+
+async function uploadProfilePicture(user){
+
+
+
+    if(!selectedProfileImage)
+        return null;
+
+
+
+    const imageRef =
+    ref(
+
+        storage,
+
+        "profilePictures/"
+        +
+        user.uid
+
+    );
+
+
+
+    await uploadBytes(
+
+        imageRef,
+
+        selectedProfileImage
+
+    );
+
+
+
+    const url =
+    await getDownloadURL(
+        imageRef
+    );
+
+
+
+    return url;
+
+
+}
 
 
 
@@ -526,6 +623,225 @@ async function(){
 
         alert(
         "Could not save profile."
+        );
+
+
+    }
+
+
+
+};
+
+// ======================================
+// Profile Picture Upload
+// ======================================
+
+
+let selectedProfileImage = null;
+
+
+
+window.changeProfilePicture = function(event){
+
+
+    const file =
+        event.target.files[0];
+
+
+    if(!file)
+        return;
+
+
+
+    selectedProfileImage = file;
+
+
+
+    const preview =
+        document.getElementById(
+            "profileImage"
+        );
+
+
+
+    if(preview){
+
+
+        preview.src =
+        URL.createObjectURL(file);
+
+
+    }
+
+
+};
+
+
+
+
+
+
+// ======================================
+// Upload Picture To Firebase
+// ======================================
+
+
+async function uploadProfilePicture(user){
+
+
+
+    if(!selectedProfileImage)
+        return null;
+
+
+
+    const imageRef =
+    ref(
+
+        storage,
+
+        "profilePictures/"
+        +
+        user.uid
+
+    );
+
+
+
+    await uploadBytes(
+
+        imageRef,
+
+        selectedProfileImage
+
+    );
+
+
+
+    const url =
+    await getDownloadURL(
+        imageRef
+    );
+
+
+
+    return url;
+
+
+}
+
+
+
+
+
+
+// ======================================
+// Save Profile Picture
+// ======================================
+
+
+window.saveProfilePicture =
+async function(){
+
+
+
+    const user =
+    auth.currentUser;
+
+
+
+    if(!user){
+
+
+        alert(
+        "Please sign in first."
+        );
+
+
+        return;
+
+    }
+
+
+
+
+    try{
+
+
+        const photoURL =
+        await uploadProfilePicture(
+            user
+        );
+
+
+
+        if(!photoURL)
+            return;
+
+
+
+        await setDoc(
+
+            doc(
+                db,
+                "users",
+                user.uid
+            ),
+
+
+            {
+
+
+                photoURL:
+                photoURL
+
+
+            },
+
+
+            {
+
+
+                merge:true
+
+
+            }
+
+
+        );
+
+
+
+
+        document
+        .getElementById(
+            "profileImage"
+        )
+        .src =
+        photoURL;
+
+
+
+
+        alert(
+        "✅ Profile picture saved!"
+        );
+
+
+
+    }
+
+
+    catch(error){
+
+
+        console.error(
+            error
+        );
+
+
+        alert(
+        "Upload failed."
         );
 
 
