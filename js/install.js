@@ -1,48 +1,33 @@
 // ======================================
 // Money Saver Pro v1.1
-// PWA Install Button
+// Install Button
 // ======================================
 
-
-let deferredPrompt = null;
-
+let deferredPrompt;
 
 
-const installButton =
-document.getElementById(
-    "installBtn"
-);
+const installBtn =
+document.getElementById("installBtn");
 
 
 
-
-
-// ------------------------------
-// Listen For Install Prompt
-// ------------------------------
+// Browser detects install option
 
 window.addEventListener(
 "beforeinstallprompt",
-(event)=>{
+(e)=>{
 
 
-    // Stop automatic browser popup
-
-    event.preventDefault();
+    e.preventDefault();
 
 
-
-    // Save prompt
-
-    deferredPrompt = event;
+    deferredPrompt = e;
 
 
 
-    // Show button
+    if(installBtn){
 
-    if(installButton){
-
-        installButton.style.display =
+        installBtn.style.display =
         "block";
 
     }
@@ -53,31 +38,21 @@ window.addEventListener(
 
 
 
+// Button clicked
+
+if(installBtn){
 
 
-
-
-// ------------------------------
-// Install App
-// ------------------------------
-
-if(installButton){
-
-
-    installButton.addEventListener(
-
+    installBtn.addEventListener(
     "click",
-
     async()=>{
 
 
         if(!deferredPrompt){
 
-
             alert(
-            "Money Saver Pro is already installed or cannot be installed yet."
+            "Install is not available yet."
             );
-
 
             return;
 
@@ -85,52 +60,26 @@ if(installButton){
 
 
 
-
-
-        // Show install popup
-
         deferredPrompt.prompt();
 
 
 
-
-        const result =
-            await deferredPrompt.userChoice;
-
+        const choice =
+        await deferredPrompt.userChoice;
 
 
 
-        if(
-            result.outcome === "accepted"
-        ){
+        if(choice.outcome === "accepted"){
 
             console.log(
-            "Money Saver Pro installed"
+            "App installed"
             );
 
-
         }
-
-        else{
-
-
-            console.log(
-            "Install cancelled"
-            );
-
-
-        }
-
 
 
 
         deferredPrompt = null;
-
-
-
-        installButton.style.display =
-        "none";
-
 
 
     });
@@ -140,34 +89,19 @@ if(installButton){
 
 
 
-
-
-
-
-// ------------------------------
-// Detect Installed App
-// ------------------------------
+// Hide after install
 
 window.addEventListener(
-
 "appinstalled",
-
 ()=>{
 
 
-    console.log(
-    "Money Saver Pro installed successfully!"
-    );
+    if(installBtn){
 
-
-
-    if(installButton){
-
-        installButton.style.display =
+        installBtn.style.display =
         "none";
 
     }
-
 
 
 });
