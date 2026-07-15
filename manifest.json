@@ -1,21 +1,57 @@
 {
+  "id": "/index.html",
   "name": "Money Saver Pro",
   "short_name": "Money Saver Pro",
-  "start_url": "./index.html",
-  "scope": "./",isplay": "standalone",
+  "description": "Track your savings goals and reach them faster.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+
   "background_color": "#111827",
   "theme_color": "#22c55e",
-  "description": "Track your savings goals and reach them faster.",
-  "orientation": "portrait",
- "icons": [
- {
-   "src": "icons/icon-192.png",
-   "sizes": "192x192",
-   "type": "image/png"
- },
- {
-   "src": "icons/icon-512.png",
-   "sizes": "512x512",
-   "type": "image/png"
- }
-]
+
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshots/mobile.png",
+      "sizes": "390x844",
+      "type": "image/png"
+    }
+  ],
+
+  "categories": [
+    "finance",
+    "productivity"
+  ],
+
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ]
+}
