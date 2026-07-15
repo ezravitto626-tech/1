@@ -1,7 +1,7 @@
 const UNSPLASH_KEY =
 "Ob7-kATzJ8Ixsbmb2vysC0hylEFied28qtDMbLMwLrg";
 
-let selectedImage = "";
+window.selectedImage = "";
 
 async function searchUnsplash(){
 
