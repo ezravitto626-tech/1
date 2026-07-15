@@ -633,12 +633,9 @@ async function(){
 };
 
 // ======================================
-// Profile Picture Upload
+// Local Profile Picture System
+// Money Saver Pro v1.1
 // ======================================
-
-
-let selectedProfileImage = null;
-
 
 
 window.changeProfilePicture = function(event){
@@ -653,25 +650,48 @@ window.changeProfilePicture = function(event){
 
 
 
-    selectedProfileImage = file;
+    const reader =
+    new FileReader();
 
 
 
-    const preview =
-        document.getElementById(
-            "profileImage"
+    reader.onload = function(e){
+
+
+        const imageData =
+            e.target.result;
+
+
+
+        // Save picture
+
+        localStorage.setItem(
+            "profilePicture",
+            imageData
         );
 
 
 
-    if(preview){
+        const image =
+            document.getElementById(
+                "profileImage"
+            );
 
 
-        preview.src =
-        URL.createObjectURL(file);
+
+        if(image){
+
+            image.src =
+            imageData;
+
+        }
 
 
-    }
+    };
+
+
+
+    reader.readAsDataURL(file);
 
 
 };
@@ -682,50 +702,35 @@ window.changeProfilePicture = function(event){
 
 
 // ======================================
-// Upload Picture To Firebase
+// Load Saved Picture
 // ======================================
 
-
-async function uploadProfilePicture(user){
-
+function loadProfilePicture(){
 
 
-    if(!selectedProfileImage)
-        return null;
-
-
-
-    const imageRef =
-    ref(
-
-        storage,
-
-        "profilePictures/"
-        +
-        user.uid
-
+    const savedImage =
+    localStorage.getItem(
+        "profilePicture"
     );
 
 
 
-    await uploadBytes(
-
-        imageRef,
-
-        selectedProfileImage
-
+    const image =
+    document.getElementById(
+        "profileImage"
     );
 
 
 
-    const url =
-    await getDownloadURL(
-        imageRef
-    );
+    if(
+        savedImage &&
+        image
+    ){
 
+        image.src =
+        savedImage;
 
-
-    return url;
+    }
 
 
 }
@@ -734,120 +739,14 @@ async function uploadProfilePicture(user){
 
 
 
+document.addEventListener(
 
-// ======================================
-// Save Profile Picture
-// ======================================
+"DOMContentLoaded",
 
+()=>{
 
-window.saveProfilePicture =
-async function(){
+    loadProfilePicture();
 
+}
 
-
-    const user =
-    auth.currentUser;
-
-
-
-    if(!user){
-
-
-        alert(
-        "Please sign in first."
-        );
-
-
-        return;
-
-    }
-
-
-
-
-    try{
-
-
-        const photoURL =
-        await uploadProfilePicture(
-            user
-        );
-
-
-
-        if(!photoURL)
-            return;
-
-
-
-        await setDoc(
-
-            doc(
-                db,
-                "users",
-                user.uid
-            ),
-
-
-            {
-
-
-                photoURL:
-                photoURL
-
-
-            },
-
-
-            {
-
-
-                merge:true
-
-
-            }
-
-
-        );
-
-
-
-
-        document
-        .getElementById(
-            "profileImage"
-        )
-        .src =
-        photoURL;
-
-
-
-
-        alert(
-        "✅ Profile picture saved!"
-        );
-
-
-
-    }
-
-
-    catch(error){
-
-
-        console.error(
-            error
-        );
-
-
-        alert(
-        "Upload failed."
-        );
-
-
-    }
-
-
-
-};
-
+);
