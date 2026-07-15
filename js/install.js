@@ -17,20 +17,13 @@ window.addEventListener("beforeinstallprompt", (event) => {
 });
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("click", async (event)=>{
 
-    const installBtn = document.getElementById("installBtn");
+    if(event.target.id === "installBtn"){
 
+        if(!deferredPrompt){
 
-    if (!installBtn) return;
-
-
-    installBtn.addEventListener("click", async () => {
-
-
-        if (!deferredPrompt) {
-
-            alert("Install is not available yet. Try opening this page in Chrome or Edge.");
+            alert("Install is not ready yet.");
 
             return;
 
@@ -43,17 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await deferredPrompt.userChoice;
 
 
-        if (result.outcome === "accepted") {
-
-            console.log("Money Saver Pro installed!");
-
-        }
+        console.log(result.outcome);
 
 
         deferredPrompt = null;
 
-        installBtn.style.display = "none";
-
-    });
+    }
 
 });
