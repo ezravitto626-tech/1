@@ -2,29 +2,10 @@ const CACHE_NAME = "money-saver-pro-v1.1";
 
 
 const FILES_TO_CACHE = [
-
     "./",
     "./index.html",
-
     "./css/style.css",
-
-    "./manifest.json",
-
-    "./js/app.js",
-    "./js/storage.js",
-    "./js/dashboard.js",
-    "./js/goals.js",
-    "./js/family.js",
-    "./js/stats.js",
-    "./js/settings.js",
-    "./js/unsplash.js",
-
-    "./icons/icon-192.png",
-    "./icons/icon-512.png",
-
-    "./images/logo.png",
-    "./images/default-profile.png"
-
+    "./manifest.json"
 ];
 
 
