@@ -1,22 +1,37 @@
-// Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 import { 
-getFirestore,
-doc,
-setDoc,
-getDoc,
-updateDoc
+    getAuth 
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import { 
+    getFirestore 
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-window.firebaseFunctions = {
+import {
+    getStorage
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
-    doc,
-    setDoc,
-    getDoc,
-    updateDoc
 
+const firebaseConfig = {
+    // your Firebase config
 };
+
+
+const app =
+initializeApp(firebaseConfig);
+
+
+export const auth =
+getAuth(app);
+
+
+export const db =
+getFirestore(app);
+
+
+export const storage =
+getStorage(app);
 
 // Your Firebase configuration
 const firebaseConfig = {
