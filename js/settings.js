@@ -308,3 +308,217 @@ auth,
 
 });
 
+// ======================================
+// Save Profile Changes
+// ======================================
+
+
+let selectedProfileImage = null;
+
+
+
+// ------------------------------
+// Profile Picture Selection
+// ------------------------------
+
+window.changeProfilePicture = function(event){
+
+
+    const file =
+        event.target.files[0];
+
+
+    if(!file)
+        return;
+
+
+
+    selectedProfileImage = file;
+
+
+
+    const image =
+        document.getElementById(
+            "profileImage"
+        );
+
+
+
+    if(image){
+
+        image.src =
+        URL.createObjectURL(file);
+
+    }
+
+
+};
+
+
+
+
+
+
+// ------------------------------
+// Save Profile
+// ------------------------------
+
+window.saveProfileChanges =
+async function(){
+
+
+    const user =
+        auth.currentUser;
+
+
+
+    if(!user){
+
+
+        alert(
+        "Please sign in first."
+        );
+
+
+        return;
+
+    }
+
+
+
+
+
+    const nameInput =
+        document.getElementById(
+            "name"
+        );
+
+
+
+    const newName =
+        nameInput ?
+        nameInput.value.trim()
+        :
+        "";
+
+
+
+
+
+    try{
+
+
+        let photoURL = "";
+
+
+
+        // Upload image later with Firebase Storage
+
+        if(selectedProfileImage){
+
+
+            photoURL =
+            URL.createObjectURL(
+                selectedProfileImage
+            );
+
+
+        }
+
+
+
+
+
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                user.uid
+            );
+
+
+
+
+
+        await setDoc(
+
+            userRef,
+
+            {
+
+
+                name:
+                newName ||
+                "User",
+
+
+
+                email:
+                user.email,
+
+
+
+                photoURL,
+
+
+
+                updated:
+                Date.now()
+
+
+
+            },
+
+
+            {
+                merge:true
+            }
+
+        );
+
+
+
+
+
+
+
+        setText(
+            "profileName",
+            newName ||
+            "User"
+        );
+
+
+
+
+        alert(
+        "✅ Profile saved!"
+        );
+
+
+
+
+    }
+
+
+    catch(error){
+
+
+        console.error(
+            "Profile save error:",
+            error
+        );
+
+
+        alert(
+        "Could not save profile."
+        );
+
+
+    }
+
+
+
+};
+
