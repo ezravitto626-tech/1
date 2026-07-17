@@ -11,6 +11,9 @@ import {
 
 import { auth, db } from "./firebase.js";
 
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 // ======================
 // Create Account
@@ -68,8 +71,8 @@ window.signup = async function(){
         alert("Account created!");
 
 
-        window.location.href =
-        "index.html";
+       window.location.href =
+"index.html";
 
 
     }
@@ -147,7 +150,7 @@ window.logout = async function(){
 
 
     window.location.href =
-    "login.html";
+"index.html";
 
 
 };
@@ -160,31 +163,21 @@ window.logout = async function(){
 
 window.showSignup = function(){
 
-    document.getElementById(
-        "loginSection"
-    ).style.display="none";
+    document.getElementById("accountLogin").style.display="none";
 
-
-    document.getElementById(
-        "signupSection"
-    ).style.display="block";
-
+    document.getElementById("accountSignup").style.display="block";
 
 };
 
 
 
+
+
 window.showLogin = function(){
 
-    document.getElementById(
-        "signupSection"
-    ).style.display="none";
+    document.getElementById("accountSignup").style.display="none";
 
-
-    document.getElementById(
-        "loginSection"
-    ).style.display="block";
-
+    document.getElementById("accountLogin").style.display="block";
 
 };
 
@@ -206,3 +199,45 @@ window.showAccountSignup = function(){
 console.log("✅ auth.js loaded");
     
 };
+
+onAuthStateChanged(auth, (user)=>{
+
+
+const loginBox =
+document.getElementById("accountLogin");
+
+
+const signupBox =
+document.getElementById("accountSignup");
+
+
+
+if(user){
+
+    if(loginBox)
+    loginBox.style.display="none";
+
+
+    if(signupBox)
+    signupBox.style.display="none";
+
+
+    document.getElementById("profileEmail").textContent =
+    user.email;
+
+
+}
+else{
+
+
+    if(loginBox)
+    loginBox.style.display="block";
+
+
+    if(signupBox)
+    signupBox.style.display="block";
+
+
+}
+
+});
