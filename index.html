@@ -17,7 +17,6 @@
 
     <link rel="apple-touch-icon" href="./icons/icon-192.png">
 
-<script type="module" src="js/install.js"></script>
     <!-- Styles -->
     <link rel="stylesheet" href="./css/style.css">
 
@@ -685,24 +684,34 @@ style="width:0%;">
 
 </section>
 
-    <!-- SETTINGS PAGE -->
+   <!-- SETTINGS PAGE -->
 
 <section id="settings" class="page">
-
 
 <h1>
 ⚙️ Settings
 </h1>
 
+
+<!-- INSTALL APP -->
+
+<div class="card">
+
 <button id="installBtn" class="install-btn">
-    📲 Install Money Saver Pro
+📲 Install Money Saver Pro
 </button>
 
+</div>
+
+
+
+<!-- PROFILE -->
+
+<div class="card">
 
 <h2>
 👤 Profile
 </h2>
-
 
 
 <img
@@ -714,126 +723,55 @@ style="border-radius:50%;"
 alt="Profile Picture">
 
 
-
-
-
 <h3 id="profileName">
-
 Guest
-
 </h3>
 
 
-
-
 <p id="profileEmail">
-
 Not signed in
-
 </p>
-
-
-
 
 
 <p>
-
 👨‍👩‍👧 Family:
 
 <span id="profileFamily">
-
 Not connected
-
 </span>
 
-
 </p>
-
-
-
 
 
 <input
 type="file"
 id="profileUpload"
-accept="image/*"
-onchange="changeProfilePicture(event)">
+accept="image/*">
+
 
 <button onclick="saveProfilePicture()">
-    📸 Save Profile Picture
+📸 Save Profile Picture
 </button>
 
-</div>
-
-
-
-
-
-
-
-<div class="card">
-
-    <h2>👤 Profile</h2>
-
-
-    <img
-    id="profileImage"
-    src="images/default-profile.png"
-    width="100"
-    height="100"
-    style="border-radius:50%;"
-    >
-
-
-    <h3 id="profileName">
-        Guest
-    </h3>
-
-
-    <p id="profileEmail">
-        Not signed in
-    </p>
-
-
-    <p>
-        👨‍👩‍👧 Family:
-
-        <span id="profileFamily">
-            Not connected
-        </span>
-    </p>
-
-
-    <input
-    type="file"
-    id="profileUpload"
-    accept="image/*"
-    onchange="changeProfilePicture(event)"
-    >
 
 </div>
 
 
 
 
+<!-- ACCOUNT LOGIN -->
 
-
-
-<div id="accountLogin" class="card" style="display:none;">
-
+<div id="accountLogin" class="card">
 
 <h2>
-Sign In
+🔑 Sign In
 </h2>
-
 
 
 <input
 id="loginEmail"
+type="email"
 placeholder="Email">
-
-
-
 
 
 <input
@@ -842,15 +780,9 @@ type="password"
 placeholder="Password">
 
 
-
-
-
 <button onclick="login()">
-
 🔑 Sign In
-
 </button>
-
 
 
 </div>
@@ -859,17 +791,13 @@ placeholder="Password">
 
 
 
+<!-- ACCOUNT SIGN UP -->
 
-
-<div id="accountSignup" class="card" style="display:none;">
-
-
+<div id="accountSignup" class="card">
 
 <h2>
-Create Account
+📝 Create Account
 </h2>
-
-
 
 
 <input
@@ -877,15 +805,10 @@ id="name"
 placeholder="Your Name">
 
 
-
-
-
 <input
 id="signupEmail"
+type="email"
 placeholder="Email">
-
-
-
 
 
 <input
@@ -894,15 +817,29 @@ type="password"
 placeholder="Password">
 
 
-
-
-
 <button onclick="signup()">
-
 📝 Create Account
-
 </button>
 
+
+</div>
+
+
+
+
+
+<!-- ACCOUNT STATUS -->
+
+<div class="card">
+
+<h2>
+🔐 Account
+</h2>
+
+
+<button onclick="logout()">
+🚪 Sign Out
+</button>
 
 
 </div>
@@ -912,15 +849,70 @@ placeholder="Password">
 
 
 
+<!-- FAMILY -->
 
 <div class="card">
 
+<h2>
+👨‍👩‍👧 Family Connection
+</h2>
+
+
+<p>
+Family Status:
+<span id="settingsFamilyStatus">
+Not Connected
+</span>
+</p>
+
+
+<button onclick="showPage('family')">
+👨‍👩‍👧 Manage Family
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- APPEARANCE -->
+
+<div class="card">
+
+<h2>
+🎨 Appearance
+</h2>
+
 
 <button onclick="toggleTheme()">
-
 🌙 Toggle Theme
-
 </button>
+
+
+</div>
+
+
+
+
+<!-- ABOUT -->
+
+<div class="card">
+
+<h2>
+ℹ️ About
+</h2>
+
+
+<p>
+Money Saver Pro
+</p>
+
+
+<p>
+Version 1.0
+</p>
 
 
 </div>
