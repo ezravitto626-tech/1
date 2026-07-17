@@ -15,13 +15,13 @@ import {
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAMfY1MaLg-u9k6rCo1GYrq0x4nZNv7MEE",
-    authDomain: "money-saver-pro.firebaseapp.com",
-    projectId: "money-saver-pro",
-    storageBucket: "money-saver-pro.firebasestorage.app",
-    messagingSenderId: "582870623552",
-    appId: "1:582870623552:web:e62dec344cc88d663146a5",
-    measurementId: "G-9KYDS226CJ"
+  apiKey: "AIzaSyAMfY1MaLg-u9k6rCo1GYrq0x4nZNv7MEE",
+  authDomain: "money-saver-pro.firebaseapp.com",
+  projectId: "money-saver-pro",
+  storageBucket: "money-saver-pro.firebasestorage.app",
+  messagingSenderId: "582870623552",
+  appId: "1:582870623552:web:e62dec344cc88d663146a5",
+  measurementId: "G-9KYDS226CJ"
 };
 
 
