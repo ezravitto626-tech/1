@@ -15,7 +15,7 @@ import {
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAMfY1MaLg-u9k6rCo1GYrq0x4nZNv7ME",
+    apiKey: "AIzaSyAMfY1MaLg-u9k6rCo1GYrq0x4nZNv7MEE",
     authDomain: "money-saver-pro.firebaseapp.com",
     projectId: "money-saver-pro",
     storageBucket: "money-saver-pro.firebasestorage.app",
