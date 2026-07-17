@@ -1,6 +1,6 @@
 // ======================================
 // Money Saver Pro v1.1
-// Settings System
+// Settings System (Clean Version)
 // ======================================
 
 
@@ -8,9 +8,7 @@ import { auth, db, storage } from "./firebase.js";
 
 
 import {
-
     onAuthStateChanged
-
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
@@ -20,40 +18,28 @@ import {
     setDoc
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-import {
 
+import {
     ref,
     uploadBytes,
     getDownloadURL
-
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 
-import {
 
-    doc,
-    setDoc
+// ================================
+// Helpers
+// ================================
 
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-
-
-// ------------------------------
-// Safe Text Update
-// ------------------------------
-
-function setText(id,value){
-
+function setText(id, value){
 
     const element =
-        document.getElementById(id);
-
+    document.getElementById(id);
 
 
     if(element){
 
-        element.textContent =
-        value;
+        element.textContent = value;
 
     }
 
@@ -61,160 +47,9 @@ function setText(id,value){
 
 
 
-
-
-
-// ------------------------------
-// Load User Profile
-// ------------------------------
-
-async function loadProfile(user){
-
-
-
-    if(!user)
-        return;
-
-
-
-
-    setText(
-        "profileEmail",
-        user.email
-    );
-
-
-
-    try {
-
-
-
-        const userRef =
-            doc(
-                db,
-                "users",
-                user.uid
-            );
-
-
-
-        const userSnap =
-            await getDoc(userRef);
-
-
-
-
-
-        if(
-            userSnap.exists()
-        ){
-
-
-
-            const data =
-                userSnap.data();
-
-
-
-
-
-            setText(
-
-                "profileName",
-
-                data.name ||
-                "User"
-
-            );
-
-
-
-
-
-            setText(
-
-                "profileFamily",
-
-                data.familyCode ||
-                "Not connected"
-
-            );
-
-
-
-
-
-
-            const image =
-                document.getElementById(
-                    "profileImage"
-                );
-
-
-
-
-            if(
-                image &&
-                data.photoURL
-            ){
-
-                image.src =
-                data.photoURL;
-
-            }
-
-
-
-
-        }
-
-        else{
-
-
-            setText(
-                "profileName",
-                "User"
-            );
-
-
-            setText(
-                "profileFamily",
-                "Not connected"
-            );
-
-
-        }
-
-
-
-
-
-    }
-
-
-    catch(error){
-
-
-        console.error(
-
-            "Profile load error:",
-            error
-
-        );
-
-
-    }
-
-
-
-}
-
-
-
-// ======================================
-// Profile Picture Upload
-// ======================================
-
+// ================================
+// Profile Image
+// ================================
 
 let selectedProfileImage = null;
 
@@ -224,218 +59,7 @@ window.changeProfilePicture = function(event){
 
 
     const file =
-        event.target.files[0];
-
-
-    if(!file)
-        return;
-
-
-
-    selectedProfileImage = file;
-
-
-
-    const preview =
-        document.getElementById(
-            "profileImage"
-        );
-
-
-
-    if(preview){
-
-
-        preview.src =
-        URL.createObjectURL(file);
-
-
-    }
-
-
-};
-
-
-
-
-
-
-// ======================================
-// Upload Picture To Firebase
-// ======================================
-
-
-async function uploadProfilePicture(user){
-
-
-
-    if(!selectedProfileImage)
-        return null;
-
-
-
-    const imageRef =
-    ref(
-
-        storage,
-
-        "profilePictures/"
-        +
-        user.uid
-
-    );
-
-
-
-    await uploadBytes(
-
-        imageRef,
-
-        selectedProfileImage
-
-    );
-
-
-
-    const url =
-    await getDownloadURL(
-        imageRef
-    );
-
-
-
-    return url;
-
-
-}
-
-
-
-
-
-// ------------------------------
-// Authentication Status
-// ------------------------------
-
-onAuthStateChanged(
-
-auth,
-
-(user)=>{
-
-
-    window.currentUser =
-    user;
-
-
-
-    const status =
-        document.getElementById(
-            "accountStatus"
-        );
-
-
-
-
-    if(!status)
-        return;
-
-
-
-
-
-    if(user){
-
-
-
-        status.innerHTML =
-
-        `
-        ✅ Signed in as
-
-        <b>
-        ${user.email}
-        </b>
-        `;
-
-
-
-        loadProfile(user);
-
-
-
-    }
-
-    else{
-
-
-
-        status.textContent =
-        "Not signed in.";
-
-
-
-        setText(
-            "profileName",
-            "Guest"
-        );
-
-
-
-        setText(
-            "profileEmail",
-            "Not signed in"
-        );
-
-
-
-        setText(
-            "profileFamily",
-            "Not connected"
-        );
-
-
-
-        const image =
-        document.getElementById(
-            "profileImage"
-        );
-
-
-
-        if(image){
-
-            image.src =
-            "images/default-profile.png";
-
-        }
-
-
-
-    }
-
-
-
-});
-
-// ======================================
-// Save Profile Changes
-// ======================================
-
-
-let selectedProfileImage = null;
-
-
-
-// ------------------------------
-// Profile Picture Selection
-// ------------------------------
-
-window.changeProfilePicture = function(event){
-
-
-    const file =
-        event.target.files[0];
+    event.target.files[0];
 
 
     if(!file)
@@ -448,10 +72,9 @@ window.changeProfilePicture = function(event){
 
 
     const image =
-        document.getElementById(
-            "profileImage"
-        );
-
+    document.getElementById(
+        "profileImage"
+    );
 
 
     if(image){
@@ -466,19 +89,243 @@ window.changeProfilePicture = function(event){
 
 
 
+// ================================
+// Upload Image
+// ================================
+
+async function uploadProfilePicture(user){
+
+
+    if(!selectedProfileImage)
+        return null;
 
 
 
-// ------------------------------
+    const imageRef =
+    ref(
+        storage,
+        "profilePictures/" + user.uid
+    );
+
+
+
+    await uploadBytes(
+        imageRef,
+        selectedProfileImage
+    );
+
+
+
+    return await getDownloadURL(
+        imageRef
+    );
+
+
+}
+
+
+
+// ================================
+// Load Profile
+// ================================
+
+async function loadProfile(user){
+
+
+    if(!user)
+        return;
+
+
+
+    setText(
+        "profileEmail",
+        user.email
+    );
+
+
+
+    try{
+
+
+        const userRef =
+        doc(
+            db,
+            "users",
+            user.uid
+        );
+
+
+
+        const snapshot =
+        await getDoc(userRef);
+
+
+
+        if(snapshot.exists()){
+
+
+            const data =
+            snapshot.data();
+
+
+
+            setText(
+                "profileName",
+                data.name || "User"
+            );
+
+
+
+            setText(
+                "profileFamily",
+                data.familyCode || "Not connected"
+            );
+
+
+
+            if(data.photoURL){
+
+                const image =
+                document.getElementById(
+                    "profileImage"
+                );
+
+
+                if(image){
+
+                    image.src =
+                    data.photoURL;
+
+                }
+
+            }
+
+
+        }
+
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Profile loading error:",
+            error
+        );
+
+    }
+
+
+}
+
+
+
+
+// ================================
+// Authentication Listener
+// ================================
+
+
+onAuthStateChanged(
+auth,
+(user)=>{
+
+
+    window.currentUser =
+    user;
+
+
+
+    const status =
+    document.getElementById(
+        "accountStatus"
+    );
+
+
+
+    if(user){
+
+
+        if(status){
+
+            status.innerHTML =
+            `
+            ✅ Signed in as
+            <b>${user.email}</b>
+            `;
+
+        }
+
+
+
+        loadProfile(user);
+
+
+
+    }
+    else{
+
+
+        if(status){
+
+            status.textContent =
+            "Not signed in.";
+
+        }
+
+
+
+        setText(
+            "profileName",
+            "Guest"
+        );
+
+
+        setText(
+            "profileEmail",
+            "Not signed in"
+        );
+
+
+        setText(
+            "profileFamily",
+            "Not connected"
+        );
+
+
+        const image =
+        document.getElementById(
+            "profileImage"
+        );
+
+
+        if(image){
+
+            image.src =
+            "./images/default-profile.png";
+
+        }
+
+
+    }
+
+
+});
+
+
+
+
+// ================================
 // Save Profile
-// ------------------------------
+// ================================
+
 
 window.saveProfileChanges =
 async function(){
 
 
     const user =
-        auth.currentUser;
+    auth.currentUser;
 
 
 
@@ -496,87 +343,63 @@ async function(){
 
 
 
-
-
     const nameInput =
-        document.getElementById(
-            "name"
-        );
+    document.getElementById(
+        "name"
+    );
 
 
 
-    const newName =
-        nameInput ?
-        nameInput.value.trim()
-        :
-        "";
-
-
+    const name =
+    nameInput ?
+    nameInput.value.trim()
+    :
+    "User";
 
 
 
     try{
 
 
-        let photoURL = "";
+        let photoURL = null;
 
 
-
-        // Upload image later with Firebase Storage
 
         if(selectedProfileImage){
 
 
             photoURL =
-            URL.createObjectURL(
-                selectedProfileImage
+            await uploadProfilePicture(
+                user
             );
-
 
         }
 
 
 
 
+        await setDoc(
 
-
-        const userRef =
             doc(
                 db,
                 "users",
                 user.uid
-            );
+            ),
 
-
-
-
-
-        await setDoc(
-
-            userRef,
 
             {
 
-
                 name:
-                newName ||
-                "User",
-
-
+                name || "User",
 
                 email:
                 user.email,
 
-
-
+                photoURL:
                 photoURL,
-
-
 
                 updated:
                 Date.now()
-
-
 
             },
 
@@ -589,34 +412,23 @@ async function(){
 
 
 
-
-
-
-
         setText(
             "profileName",
-            newName ||
-            "User"
+            name || "User"
         );
-
 
 
 
         alert(
-        "✅ Profile saved!"
+        "✅ Profile Saved!"
         );
 
 
-
-
     }
-
-
     catch(error){
 
 
         console.error(
-            "Profile save error:",
             error
         );
 
@@ -629,86 +441,19 @@ async function(){
     }
 
 
-
-};
-
-// ======================================
-// Local Profile Picture System
-// Money Saver Pro v1.1
-// ======================================
-
-
-window.changeProfilePicture = function(event){
-
-
-    const file =
-        event.target.files[0];
-
-
-    if(!file)
-        return;
-
-
-
-    const reader =
-    new FileReader();
-
-
-
-    reader.onload = function(e){
-
-
-        const imageData =
-            e.target.result;
-
-
-
-        // Save picture
-
-        localStorage.setItem(
-            "profilePicture",
-            imageData
-        );
-
-
-
-        const image =
-            document.getElementById(
-                "profileImage"
-            );
-
-
-
-        if(image){
-
-            image.src =
-            imageData;
-
-        }
-
-
-    };
-
-
-
-    reader.readAsDataURL(file);
-
-
 };
 
 
 
+// ================================
+// Load Local Picture
+// ================================
 
-
-
-// ======================================
-// Load Saved Picture
-// ======================================
 
 function loadProfilePicture(){
 
 
-    const savedImage =
+    const saved =
     localStorage.getItem(
         "profilePicture"
     );
@@ -722,13 +467,10 @@ function loadProfilePicture(){
 
 
 
-    if(
-        savedImage &&
-        image
-    ){
+    if(saved && image){
 
         image.src =
-        savedImage;
+        saved;
 
     }
 
@@ -737,16 +479,16 @@ function loadProfilePicture(){
 
 
 
-
-
 document.addEventListener(
-
 "DOMContentLoaded",
-
 ()=>{
 
     loadProfilePicture();
 
-}
+});
 
+
+
+console.log(
+"✅ settings.js loaded"
 );
