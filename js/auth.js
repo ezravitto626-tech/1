@@ -32,7 +32,7 @@ window.signup = async function(){
     const password =
     document.getElementById("signupPassword").value;
 
-console.log("✅ auth.js loaded");
+
 
     if(!name || !email || !password){
 
@@ -237,7 +237,7 @@ else{
     if(signupBox)
     signupBox.style.display="block";
 
-
+console.log("✅ auth.js loaded");
 }
 
 });
