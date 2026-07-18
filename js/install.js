@@ -1,39 +1,44 @@
-// ======================================
-// Money Saver Pro v1.1
-// Install Button
-// ======================================
-
 let deferredPrompt;
 
 const installBtn = document.getElementById("installBtn");
 
+if (installBtn) {
+    installBtn.style.display = "none";
+}
+
 window.addEventListener("beforeinstallprompt", (e) => {
-    console.log("Install prompt available");
+    console.log("✅ beforeinstallprompt fired");
 
     e.preventDefault();
-
     deferredPrompt = e;
 
     if (installBtn) {
-        installBtn.style.display = "block";
+        installBtn.style.display = "inline-block";
     }
 });
 
+window.addEventListener("appinstalled", () => {
+    console.log("✅ App installed");
+    deferredPrompt = null;
+
+    if (installBtn) {
+        installBtn.style.display = "none";
+    }
+});
 
 if (installBtn) {
     installBtn.addEventListener("click", async () => {
-
         if (!deferredPrompt) {
-            alert("Installation is not available yet. Try refreshing the page.");
+            alert("Your browser hasn't made the app installable yet.");
             return;
         }
 
-        deferredPrompt.prompt();
+        await deferredPrompt.prompt();
 
-        const { outcome } = await deferredPrompt.userChoice;
-
-        console.log("Install choice:", outcome);
+        const choice = await deferredPrompt.userChoice;
+        console.log("Install result:", choice.outcome);
 
         deferredPrompt = null;
+        installBtn.style.display = "none";
     });
 }
