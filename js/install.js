@@ -5,103 +5,35 @@
 
 let deferredPrompt;
 
+const installBtn = document.getElementById("installBtn");
 
-const installBtn =
-document.getElementById("installBtn");
-
-
-
-// Browser detects install option
-
-window.addEventListener(
-"beforeinstallprompt",
-(e)=>{
-
+window.addEventListener("beforeinstallprompt", (e) => {
+    console.log("Install prompt available");
 
     e.preventDefault();
 
-
     deferredPrompt = e;
 
-
-
-    if(installBtn){
-
-        installBtn.style.display =
-        "block";
-
+    if (installBtn) {
+        installBtn.style.display = "block";
     }
-
-
 });
 
 
+if (installBtn) {
+    installBtn.addEventListener("click", async () => {
 
-
-// Button clicked
-
-if(installBtn){
-
-
-    installBtn.addEventListener(
-    "click",
-    async()=>{
-
-
-        if(!deferredPrompt){
-
-            alert(
-            "Install is not available yet."
-            );
-
+        if (!deferredPrompt) {
+            alert("Installation is not available yet. Try refreshing the page.");
             return;
-
         }
-
-
 
         deferredPrompt.prompt();
 
+        const { outcome } = await deferredPrompt.userChoice;
 
-
-        const choice =
-        await deferredPrompt.userChoice;
-
-
-
-        if(choice.outcome === "accepted"){
-
-            console.log(
-            "App installed"
-            );
-
-        }
-
-
+        console.log("Install choice:", outcome);
 
         deferredPrompt = null;
-
-
     });
-
-
 }
-
-
-
-// Hide after install
-
-window.addEventListener(
-"appinstalled",
-()=>{
-
-
-    if(installBtn){
-
-        installBtn.style.display =
-        "none";
-
-    }
-
-
-});
