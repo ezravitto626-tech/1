@@ -1,54 +1,57 @@
-const CACHE_NAME = "money-saver-pro-v1.1";
-
+const CACHE_NAME = "money-saver-pro-v1.2";
 
 const FILES_TO_CACHE = [
-    "./",
-    "./index.html",
-    "./css/style.css",
-    "./manifest.json"
+    "/",
+    "/index.html",
+    "/manifest.json",
+
+    "/css/style.css",
+
+    "/js/app.js",
+    "/js/firebase.js",
+    "/js/auth.js",
+    "/js/settings.js",
+    "/js/dashboard.js",
+    "/js/goals.js",
+    "/js/family.js",
+    "/js/stats.js",
+    "/js/profile.js",
+
+    "/images/logo.png",
+    "/icons/icon-192.png",
+    "/icons/icon-512.png"
 ];
 
 
 // Install
-self.addEventListener("install", event => {
+self.addEventListener("install", (event) => {
 
     event.waitUntil(
-
         caches.open(CACHE_NAME)
-        .then(cache => {
-
-            console.log("Caching Money Saver Pro v1.1");
-
+        .then((cache) => {
+            console.log("Caching Money Saver Pro");
             return cache.addAll(FILES_TO_CACHE);
-
         })
-
     );
 
     self.skipWaiting();
-
 });
 
 
-
 // Activate
-self.addEventListener("activate", event => {
+self.addEventListener("activate", (event) => {
 
     event.waitUntil(
 
         caches.keys()
-        .then(keys => {
+        .then((cacheNames) => {
 
             return Promise.all(
 
-                keys.map(key => {
+                cacheNames.map((cacheName) => {
 
-                    if(key !== CACHE_NAME){
-
-                        console.log("Deleting old cache:", key);
-
-                        return caches.delete(key);
-
+                    if(cacheName !== CACHE_NAME){
+                        return caches.delete(cacheName);
                     }
 
                 })
@@ -60,43 +63,21 @@ self.addEventListener("activate", event => {
     );
 
     self.clients.claim();
-
 });
 
 
-
 // Fetch
-self.addEventListener("fetch", event => {
-
+self.addEventListener("fetch", (event) => {
 
     event.respondWith(
 
         caches.match(event.request)
+        .then((cachedResponse)=>{
 
-        .then(response => {
-
-
-            if(response){
-
-                return response;
-
-            }
-
-
-            return fetch(event.request)
-
-            .catch(()=>{
-
-
-                return caches.match("./index.html");
-
-
-            });
-
+            return cachedResponse || fetch(event.request);
 
         })
 
     );
-
 
 });
