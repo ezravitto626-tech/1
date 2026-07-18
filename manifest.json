@@ -1,9 +1,9 @@
 {
-  "id": "/index.html",
+  "id": "/",
   "name": "Money Saver Pro",
   "short_name": "Money Saver Pro",
   "description": "Track your savings goals and reach them faster.",
-  "start_url": "/index.html",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
 
@@ -17,22 +17,6 @@
       "type": "image/png",
       "purpose": "any"
     },
-    "screenshots": [
-  {
-    "src": "./screenshots/home.png",
-    "sizes": "1920x1080",
-    "type": "image/png",
-    "form_factor": "wide",
-    "label": "Money Saver Pro Desktop Dashboard"
-  },
-  {
-    "src": "./screenshots/mobile.png",
-    "sizes": "1080x1920",
-    "type": "image/png",
-    "form_factor": "narrow",
-    "label": "Money Saver Pro Mobile App"
-  }
-]
     {
       "src": "/icons/icon-512.png",
       "sizes": "512x512",
@@ -47,50 +31,49 @@
     }
   ],
 
-"screenshots": [
-  {
-    "src": "./images/home-dashboard.png",
-    "sizes": "1920x1080",
-    "type": "image/png",
-    "form_factor": "wide",
-    "label": "Money Saver Pro Dashboard"
-  },
-  {
-    "src": "./images/mobile.png",
-    "sizes": "1080x1920",
-    "type": "image/png",
-    "form_factor": "narrow",
-    "label": "Money Saver Pro Mobile App"
-  },
-  {
-    "src": "./images/home-goals.png",
-    "sizes": "1920x1080",
-    "type": "image/png",
-    "form_factor": "wide",
-    "label": "Goal Tracking"
-  },
-  {
-    "src": "./images/home-stats.png",
-    "sizes": "1920x1080",
-    "type": "image/png",
-    "form_factor": "wide",
-    "label": "Savings Statistics"
-  },
-  {
-    "src": "./images/home-family.png",
-    "sizes": "1920x1080",
-    "type": "image/png",
-    "form_factor": "wide",
-    "label": "Family Savings"
-  },
-  {
-    "src": "./images/home-settings.png",
-    "sizes": "1920x1080",
-    "type": "image/png",
-    "form_factor": "wide",
-    "label": "Settings and Profile"
-  }
-]
+  "screenshots": [
+    {
+      "src": "/images/home-dashboard.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Money Saver Pro Dashboard"
+    },
+    {
+      "src": "/images/mobile.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Money Saver Pro Mobile App"
+    },
+    {
+      "src": "/images/home-goals.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Goal Tracking"
+    },
+    {
+      "src": "/images/home-stats.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Savings Statistics"
+    },
+    {
+      "src": "/images/home-family.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Family Savings"
+    },
+    {
+      "src": "/images/home-settings.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Settings and Profile"
+    }
   ],
 
   "categories": [
