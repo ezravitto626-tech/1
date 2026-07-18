@@ -304,28 +304,119 @@ async function(){
 // Join Family
 // ------------------------------
 
-window.joinFamily =
-async function(){
+window.joinFamily = async function(){
 
-
-    const code =
-        prompt(
-            "Enter family invite code:"
-        );
-
-
+    const code = prompt("Enter family invite code:");
 
     if(!code)
         return;
 
 
+    try {
 
-    // Firebase lookup will connect here
+        alert("Searching for family: " + code);
 
-    alert(
-        "Searching for family: " + code
-    );
 
+        if(
+            !window.firebaseFunctions ||
+            !window.db
+        ){
+            alert("Firebase is not connected.");
+            return;
+        }
+
+
+        const familyRef =
+            window.firebaseFunctions.doc(
+                window.db,
+                "families",
+                code.trim()
+            );
+
+
+        const familySnap =
+            await window.firebaseFunctions.getDoc(
+                familyRef
+            );
+
+
+        if(!familySnap.exists()){
+
+            alert(
+                "Family not found. Check the code."
+            );
+
+            return;
+        }
+
+
+        familyData = familySnap.data();
+
+
+        let userName = "Guest";
+
+
+        if(
+            window.auth &&
+            window.auth.currentUser
+        ){
+
+            userName =
+            window.auth.currentUser.email;
+
+        }
+
+
+        const alreadyMember =
+            familyData.members.some(
+                member =>
+                member.name === userName
+            );
+
+
+        if(!alreadyMember){
+
+            familyData.members.push({
+
+                id: Date.now(),
+
+                name: userName,
+
+                saved: 0
+
+            });
+
+        }
+
+
+        await saveFamilyData();
+
+
+        updateFamilyDashboard();
+
+
+        alert(
+            "Successfully joined " +
+            familyData.name
+        );
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Join family error:",
+            error
+        );
+
+
+        alert(
+            "Could not join family."
+        );
+
+    }
+
+};
 
 
     /*
